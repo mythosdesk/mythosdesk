@@ -1,0 +1,24 @@
+{
+  "name": "elyagents",
+  "private": true,
+  "version": "1.0.0",
+  "description": "AI trading agents on Robinhood Chain: web (Next.js) + server (Node.js), with token launches on pons.",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n server,web -c green,yellow \"npm run dev -w @elyagents/server\" \"npm run dev -w @elyagents/web\"",
+    "build": "npm run build -w @elyagents/server && npm run build -w @elyagents/web",
+    "start": "concurrently -k -n server,web -c green,cyan \"npm run start -w @elyagents/server\" \"npm run start -w @elyagents/web\"",
+    "typecheck": "npm run typecheck -w @elyagents/shared && npm run typecheck -w @elyagents/server && npm run typecheck -w @elyagents/web",
+    "db:generate": "npm run db:generate -w @elyagents/server",
+    "lint": "npm run lint -w @elyagents/web"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
+  "engines": {
+    "node": ">=22.13"
+  }
+}

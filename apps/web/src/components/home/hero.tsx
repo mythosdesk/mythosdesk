@@ -266,7 +266,7 @@ function Socials() {
 function CaChip() {
   const { data } = useCa();
   const [copied, setCopied] = useState(false);
-  const ca = data?.ca;
+  const ca = data?.ca ?? BRAND.token.address;
   return (
     <button
       type="button"

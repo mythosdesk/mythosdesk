@@ -11,13 +11,14 @@ import { useBurns } from "@/lib/queries";
 export function BurnsPage() {
   const { data } = useBurns();
   const t = data?.token;
+  const ca = data?.ca ?? BRAND.token.address;
   const started = data?.status === "active";
   return (
     <div>
       <PageHeader
         eyebrow="The long game"
         title="Token & burns"
-        description={`The ${BRAND.name} token launches through the same contract as every coin here. Every burn is listed with its transaction.`}
+        description={`The official ${BRAND.name} token is ${BRAND.token.symbol}, launched on pons. Every burn is listed with its transaction.`}
         action={<Tag tone={started ? "up" : "default"}><Fire weight="fill" className="size-3" /> {started ? "Active" : "Not started"}</Tag>}
       />
       <Card coreClassName="grid gap-6 p-6 md:grid-cols-[1fr_1.4fr] md:p-8">
@@ -26,10 +27,10 @@ export function BurnsPage() {
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Official token</p>
             <p className="text-2xl font-semibold tracking-tight">{t?.name ?? BRAND.name}</p>
-            <p className="font-mono text-sm text-muted-foreground">{t?.symbol ?? "Ticker not announced"}</p>
+            <p className="font-mono text-sm text-muted-foreground">{t?.symbol ?? BRAND.token.symbol}</p>
             <div className="mt-2 flex items-center gap-2">
               {data && <ChainBadge chain={data.chain} />}
-              <span className="font-mono text-[11px] text-faint">{data?.ca ? shortAddress(data.ca) : "No contract yet. Any coin using this name today is not ours."}</span>
+              <span className="font-mono text-[11px] text-faint">{ca ? shortAddress(ca) : "No contract yet. Any coin using this name today is not ours."}</span>
             </div>
           </div>
         </div>

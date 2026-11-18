@@ -133,7 +133,11 @@ export function ProofPage() {
               ))}
             </dl>
           ) : (
-            <p className="p-5 text-sm text-muted-foreground">Not launched yet. When it is, its contract, fee recipient and pons record appear here automatically. Until then, any coin using this name is not ours.</p>
+            data ? (
+              <p className="p-5 text-sm text-muted-foreground">Not launched yet. When it is, its contract, fee recipient and pons record appear here automatically. Until then, any coin using this name is not ours.</p>
+            ) : (
+              <p className="p-5 text-sm text-muted-foreground">Reading the pons record for ${BRAND.token.symbol} ({shortAddress(BRAND.token.address)})…</p>
+            )
           )}
         </Card>
       </div>

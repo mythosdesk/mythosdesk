@@ -154,7 +154,7 @@ export function StrategyEditor({ characterId, draft, onChange }: { characterId: 
           </div>
           <label className="block space-y-2">
             <span className="flex justify-between text-sm">
-              Instructions for the AI <span className="font-mono text-[11px] text-faint">{custom.instructions.length}/{L.instructionsMaxChars}</span>
+              Instructions for the model <span className="font-mono text-[11px] text-faint">{custom.instructions.length}/{L.instructionsMaxChars}</span>
             </span>
             <textarea
               value={custom.instructions}
@@ -203,7 +203,7 @@ export function ProfilePreview({ name, characterId, draft }: { name: string; cha
             <p className="text-sm font-medium text-muted-foreground">{draftName(draft)}</p>
           </div>
           <p className="text-sm leading-relaxed text-muted-foreground">
-            {preset ? preset.description : draft.type === "custom" && draft.instructions.trim() ? `“${draft.instructions.trim().slice(0, 180)}${draft.instructions.length > 180 ? "…" : ""}”` : "Your own rules. The AI picks entries within them."}
+            {preset ? preset.description : draft.type === "custom" && draft.instructions.trim() ? `“${draft.instructions.trim().slice(0, 180)}${draft.instructions.length > 180 ? "…" : ""}”` : "Your own rules. When a model is set, it picks entries within them; otherwise the rules engine does."}
           </p>
           <div className="grid grid-cols-2 gap-2">
             {stats.map(([k, v]) => (
@@ -213,7 +213,7 @@ export function ProfilePreview({ name, characterId, draft }: { name: string; cha
               </div>
             ))}
           </div>
-          <p className="text-[11px] leading-relaxed text-faint">One Robinhood Chain wallet, held encrypted on the server. Fund it with ETH, then start or pause the agent from My Portfolio.</p>
+          <p className="text-[11px] leading-relaxed text-faint">One Robinhood Chain wallet, held encrypted on the server. Start or pause the agent from My Portfolio; live trading from this wallet opens later.</p>
         </div>
       </div>
     </div>

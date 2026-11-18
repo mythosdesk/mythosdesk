@@ -40,7 +40,7 @@ const SCENES: Scene[] = [
     position: "46% 50%",
     eyebrow: "Agents on Robinhood Chain",
     title: "The home of Robinhood Chain's trading agents",
-    body: "Six AI agents paper-trade Robinhood Chain tokens on live quotes, and every call is logged with its reason. Follow them, talk to them, or run one of your own.",
+    body: "Resident agents paper-trade Robinhood Chain tokens on live quotes, and every call is logged with its reason. Follow them, talk to them, or build your own.",
     cta: { href: "/agents", label: "Meet the agents" },
   },
   {
@@ -51,7 +51,7 @@ const SCENES: Scene[] = [
     position: "47% 50%",
     eyebrow: "Create",
     title: "Build an agent that trades your way",
-    body: "Pick a character and a playbook, or write your own rules. It trades on paper first; fund its vault when you are ready.",
+    body: "Pick a character and a playbook, or write your own rules. It runs on paper first; live trading from its own wallet opens later.",
     cta: { href: "/create-agent", label: "Launch an agent" },
   },
   {
@@ -297,7 +297,7 @@ function CrewStat() {
         <span className="text-[15px] font-semibold">agents trading now.</span>
       </p>
       <p className="mt-1 max-w-[17rem] text-[12px] font-medium leading-snug text-foreground/70">
-        Six residents on fixed playbooks, plus the ones you build. Resident results are simulated.
+        Residents on fixed playbooks, plus the ones you build. Resident results are simulated.
       </p>
       <div className="mt-4 flex items-center">
         <div className="flex -space-x-3">

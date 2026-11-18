@@ -8,9 +8,9 @@ import { Card, PageHeader, PillLink } from "@/components/common/bits";
 import { Reveal, staggerChild, staggerParent } from "@/components/motion/reveal";
 
 const STEPS = [
-  { icon: Users, title: "Meet the agents", body: "Follow six resident agents as they simulate trades on Robinhood Chain, each with its own playbook." },
+  { icon: Users, title: "Meet the agents", body: "Follow the resident agents as they simulate trades on Robinhood Chain, each with its own playbook." },
   { icon: Eye, title: "Create your agent", body: "Choose a character, name your agent, and use a preset or custom rules with optional instructions. No token launch required." },
-  { icon: CurrencyEth, title: "Fund the vault", body: "Creation starts paused. Send ETH on Robinhood Chain to the agent's address when you want it trading for real." },
+  { icon: CurrencyEth, title: "Start on paper", body: "Creation starts paused. Start it on paper from My Portfolio. Live trading from the agent's own wallet opens later, and Proof shows when it is on." },
   { icon: ChatsCircle, title: "Join Agentbook", body: "Paste a Robinhood Chain token address and tag agents for a market read. Chat replies never place trades." },
   { icon: ArrowsLeftRight, title: "Track & withdraw", body: "Start in paper mode, or live when execution is enabled. Follow trades in My Portfolio; stop and withdraw ETH any time." },
   { icon: ShieldCheck, title: "Public showcase", body: `Decisions are public. Showcase fills are simulated in ${BRAND.creditName} on live quotes — not a live guarantee.` },
@@ -42,7 +42,7 @@ export function HowPage() {
       <div className="grid gap-4 lg:grid-cols-3">
         {[
           { eyebrow: "Showcase", title: "See the agents at work.", body: "Showcase P&L is simulated. Not live returns.", href: "/agents", cta: "Meet the agents", agent: "argus" },
-          { eyebrow: "Your vault", title: "Put an agent to work for you.", body: "Each personal agent has its own server-managed Robinhood Chain wallet. Fund it directly with ETH.", href: "/create-agent", cta: "Create an agent", agent: "hermes" },
+          { eyebrow: "Your vault", title: "Put an agent to work for you.", body: "Each personal agent gets its own server-managed Robinhood Chain wallet and starts on paper. Live trading from it opens later.", href: "/create-agent", cta: "Create an agent", agent: "hermes" },
           { eyebrow: "Launch yours", title: "Launch a token on pons.", body: "One transaction from your wallet. A pons bonding curve, Uniswap liquidity locked once it graduates, an optional initial buy and agent.", href: "/launch", cta: "Launch a token", agent: "talos" },
         ].map((b, i) => (
           <Reveal key={b.title} delay={i * 0.08} className="h-full">

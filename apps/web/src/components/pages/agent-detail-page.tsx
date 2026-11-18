@@ -15,7 +15,7 @@ import { Card, EmptyState, PillLink, Pnl, StatusDot, Tag } from "@/components/co
 import { CountUp } from "@/components/motion/count-up";
 import { Reveal } from "@/components/motion/reveal";
 import { fmtNum, fmtPrice, fmtTime, shortAddress, timeAgo } from "@/lib/format";
-import { qk, useAgent } from "@/lib/queries";
+import { qk, useAgent, useStats } from "@/lib/queries";
 import { useSocketEvent } from "@/lib/socket";
 import { useNow } from "@/lib/use-now";
 import { cn } from "@/lib/utils";
@@ -28,6 +28,7 @@ export function AgentDetailPage() {
   const { data, isPending, isError, refetch, isFetching } = useAgent(id);
   const qc = useQueryClient();
   const now = useNow(30_000);
+  const { data: stats } = useStats();
 
   useSocketEvent(
     "feed:decision",
@@ -176,7 +177,7 @@ export function AgentDetailPage() {
             <Card coreClassName="p-5">
               <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Strategy · {agent.strategyName}</p>
               <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
-                {data.agent.instructions ? `“${data.agent.instructions}”` : "The AI reviews each screened entry against the playbook. Position limits and exits follow these rules."}
+                {data.agent.instructions ? `“${data.agent.instructions}”` : `${stats?.aiEnabled ? "The AI reviews each screened entry against the playbook." : "The rules engine ranks each screened entry against the playbook."} Position limits and exits follow these rules.`}
               </p>
               <dl className="divide-y divide-hairline text-sm">
                 {[

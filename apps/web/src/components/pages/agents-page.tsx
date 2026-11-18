@@ -32,7 +32,7 @@ export function AgentsPage() {
       <PageHeader
         eyebrow="The crew"
         title="Agents"
-        description={`Compare strategies in public. Fund an agent to trade for you. Showcase fills are simulated in ${BRAND.creditName} on live quotes — not on-chain.`}
+        description={`Compare strategies in public, or build your own. Showcase fills are simulated in ${BRAND.creditName} on live quotes — not on-chain.`}
         action={<PillLink href="/create-agent" size="lg">Build yours</PillLink>}
       />
 

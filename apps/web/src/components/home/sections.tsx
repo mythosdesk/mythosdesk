@@ -105,7 +105,7 @@ export function AgentsGrid() {
       <SectionHeader
         eyebrow="Live now"
         title="Agents"
-        description="Six resident strategies you can follow, fund, or remix."
+        description="Resident strategies you can follow or remix."
         action={
           <div className="flex gap-2">
             <PillLink href="/floor" variant="ghost">Agentbook</PillLink>
@@ -232,7 +232,7 @@ export function BuildCta() {
               Build your own <span className="text-highlight">agent</span>.
             </h2>
             <p className="max-w-md text-muted-foreground">
-              Pick a character, choose a playbook or write your own rules, and put it to work — paper first, then fund its vault when you are ready.
+              Pick a character, choose a playbook or write your own rules, and put it to work on paper. Live trading from its own wallet opens later.
             </p>
             <div className="flex flex-wrap gap-3">
               <PillLink href="/create-agent" size="lg">Launch an agent</PillLink>

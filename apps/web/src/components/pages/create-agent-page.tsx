@@ -63,7 +63,7 @@ export function CreateAgentPage() {
           : { type: "custom", name: draft.name.trim() || "My Playbook", config: draft.config, instructions: draft.instructions };
       const { agent } = await api<{ agent: MyAgent }>("/me/agents", { method: "POST", json: { name: name.trim(), characterId, strategy } });
       await qc.invalidateQueries({ queryKey: qk.myAgents });
-      toast.success(`${agent.name} is ready`, { description: "Start it in paper mode or fund its vault from My Portfolio." });
+      toast.success(`${agent.name} is ready`, { description: "Start it in paper mode from My Portfolio." });
       router.push(`/profile?agent=${agent.id}`);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Could not create the agent");
@@ -81,14 +81,14 @@ export function CreateAgentPage() {
             Create a trading <span className="text-highlight">agent</span>
           </>
         }
-        description="Build a personal agent with its own Robinhood Chain wallet and playbook. Fund it with ETH when you want it trading for real. No token launch required."
+        description="Build a personal agent with its own Robinhood Chain wallet and playbook. It runs on paper first; live trading from its wallet opens later. No token launch required."
       >
         <Link href="/launch" className="inline-flex items-center gap-1 text-sm font-medium text-foreground underline-offset-4 hover:underline">
           Want to launch a token instead? Go to the launch studio <ArrowUpRight weight="bold" className="size-3.5" />
         </Link>
         <div className="flex flex-wrap gap-2 pt-2">
           <span className="rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">1 · Design your agent</span>
-          <span className="rounded-full bg-foreground/[0.04] px-3 py-1 text-xs text-muted-foreground ring-1 ring-hairline">2 · Fund & start in Portfolio</span>
+          <span className="rounded-full bg-foreground/[0.04] px-3 py-1 text-xs text-muted-foreground ring-1 ring-hairline">2 · Start in Portfolio</span>
         </div>
       </PageHeader>
 

@@ -1,0 +1,41 @@
+{
+  "name": "@elyagents/server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --clear-screen=false src/index.ts",
+    "build": "tsup",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "engine:once": "tsx src/scripts/tick-once.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0",
+    "@electric-sql/pglite": "^0.3.0",
+    "@elyagents/shared": "*",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "drizzle-orm": "^0.45.3",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.1.0",
+    "jose": "^6.2.12",
+    "multer": "^2.0.2",
+    "pg": "^8.16.0",
+    "socket.io": "^4.8.4",
+    "viem": "^2.57.3",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^22.18.0",
+    "@types/pg": "^8.15.5",
+    "drizzle-kit": "^0.31.5",
+    "tsup": "^8.5.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  }
+}

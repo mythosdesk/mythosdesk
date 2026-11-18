@@ -1,0 +1,401 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * mythos desk design tokens — the Cosmos X layout: a slate-teal page holding
+ * one white app frame. Teal marks what is active or primary, mint fills the
+ * category tiles, ink carries text. Green and coral stay reserved for P&L,
+ * and the six agents keep their own pastel tiles.
+ */
+:root {
+  --radius: 1.25rem;
+
+  /* Outside the frame. */
+  --page: #37565b;
+  --page-deep: #2b474c;
+  --page-foreground: #cfe0e0;
+
+  /* Inside the frame. */
+  --background: #ffffff;
+  --background-deep: #eef5f5;
+  --foreground: #0f1516;
+
+  --surface-1: #f2f7f7; /* card */
+  --surface-2: #ffffff; /* nested inside a card */
+  --surface-3: #e3eeee; /* raised controls */
+  --shell: #e9f2f2;
+  --hairline: rgb(15 21 22 / 0.08);
+  --hairline-strong: rgb(15 21 22 / 0.15);
+
+  --mint: #cbe9e9;
+  --mint-strong: #b2dcdd;
+  --olive: #363a2c;
+  --teal-bright: #2f878e;
+  --teal-deep: #1d5f65;
+
+  --card: var(--surface-1);
+  --card-foreground: var(--foreground);
+  --popover: #ffffff;
+  --popover-foreground: var(--foreground);
+  --primary: #267c83;
+  --primary-foreground: #ffffff;
+  --secondary: var(--surface-3);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--background-deep);
+  --muted-foreground: #566466;
+  --accent: var(--surface-3);
+  --accent-foreground: var(--foreground);
+  --destructive: #c9452d;
+  --border: var(--hairline);
+  --input: rgb(15 21 22 / 0.14);
+  --ring: rgb(38 124 131 / 0.55);
+
+  /* Semantic + accent colours, tuned for contrast on white. */
+  --up: #17803f;
+  --sky: #2d6fa3;
+  --coral: #c9452d;
+  --amber: #a96c0e;
+  --violet: #6e4dcb;
+  --teal: #267c83;
+  --pink: #b8357f;
+  --faint: #7d8a8c;
+
+  --chart-1: var(--teal);
+  --chart-2: var(--sky);
+  --chart-3: var(--violet);
+  --chart-4: var(--amber);
+  --chart-5: var(--coral);
+
+  --sidebar: var(--surface-1);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--surface-3);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--hairline);
+  --sidebar-ring: var(--ring);
+
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /*
+   * Frame geometry, shared by the shell, the fixed nav and the home hero:
+   * page edge → frame (gutter) → hero image (frame-pad) → nav pills (nav-inset).
+   */
+  --frame-max: 1480px;
+  --gutter: 0.5rem;
+  --frame-pad: 0.375rem;
+  --nav-inset: 0.5rem;
+  --nav-h: 2.75rem;
+  --nav-clear: calc(var(--nav-inset) + var(--nav-h) + 1.25rem);
+  --frame-radius: 1.5rem;
+
+  color-scheme: light;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --gutter: 0.75rem;
+    --frame-pad: 0.5rem;
+    --nav-inset: 0.875rem;
+    --nav-h: 3rem;
+    --frame-radius: 1.875rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gutter: 1.25rem;
+    --frame-pad: 0.625rem;
+    --nav-inset: 1.125rem;
+    --nav-h: 3.25rem;
+    --nav-clear: calc(var(--nav-inset) + var(--nav-h) + 1.75rem);
+    --frame-radius: 2.125rem;
+  }
+}
+
+@theme inline {
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-space-mono);
+  --font-heading: var(--font-space-grotesk);
+
+  --color-background: var(--background);
+  --color-background-deep: var(--background-deep);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-page: var(--page);
+  --color-page-deep: var(--page-deep);
+  --color-page-foreground: var(--page-foreground);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-shell: var(--shell);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+  --color-mint: var(--mint);
+  --color-mint-strong: var(--mint-strong);
+  --color-olive: var(--olive);
+  --color-teal-bright: var(--teal-bright);
+  --color-teal-deep: var(--teal-deep);
+  --color-up: var(--up);
+  --color-sky: var(--sky);
+  --color-coral: var(--coral);
+  --color-amber: var(--amber);
+  --color-violet: var(--violet);
+  --color-teal: var(--teal);
+  --color-pink: var(--pink);
+  --color-faint: var(--faint);
+
+  --radius-sm: calc(var(--radius) - 8px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 12px);
+
+  --ease-spring: var(--ease-spring);
+  --ease-out-expo: var(--ease-out-expo);
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-pulse-dot: pulse-dot 1.8s var(--ease-spring) infinite;
+  --animate-shimmer: shimmer 1.8s ease-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-spin-slow: orbit 16s linear infinite;
+
+  @keyframes orbit {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.35;
+      transform: scale(0.8);
+    }
+  }
+  @keyframes shimmer {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    background-color: var(--page);
+  }
+  body {
+    @apply text-foreground antialiased;
+    background-color: var(--page);
+  }
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  /* Thin, quiet scrollbars. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(15 21 22 / 0.2) transparent;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Pull a block up to the frame's inner top edge, under the nav (the home hero). A utility so space-y never resets it. */
+@utility frame-bleed {
+  margin-top: calc(-1 * var(--nav-clear)) !important;
+}
+
+@layer components {
+  /* The white app frame that sits on the slate page. */
+  .app-frame {
+    position: relative;
+    margin: var(--gutter) auto 0;
+    width: calc(100% - 2 * var(--gutter));
+    max-width: var(--frame-max);
+    border-radius: var(--frame-radius);
+    padding: var(--frame-pad);
+    background: var(--background);
+    box-shadow: 0 50px 90px -70px rgb(0 0 0 / 0.65);
+  }
+  .frame-radius {
+    border-radius: calc(var(--frame-radius) - var(--frame-pad));
+  }
+
+  /* Cards are flat, cool panels on the white frame. */
+  .bezel {
+    border-radius: 1.5rem;
+  }
+  .bezel-core {
+    position: relative;
+    border-radius: 1.5rem;
+    background: var(--surface-1);
+  }
+  .panel {
+    border-radius: 1rem;
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--hairline);
+  }
+  .glass {
+    background: rgb(255 255 255 / 0.86);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    box-shadow:
+      inset 0 0 0 1px var(--hairline),
+      0 12px 32px -20px rgb(15 21 22 / 0.45);
+  }
+  /* Solid white pill: reads over imagery and over the white frame alike. */
+  .pill-white {
+    background: #ffffff;
+    color: var(--foreground);
+    box-shadow:
+      inset 0 0 0 1px rgb(15 21 22 / 0.06),
+      0 10px 28px -16px rgb(15 21 22 / 0.5);
+  }
+  /* Frosted chip for controls that sit on photographs. */
+  .glass-dark {
+    background: rgb(255 255 255 / 0.14);
+    color: #ffffff;
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.22);
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-[12px] font-semibold tracking-[-0.005em];
+    background: var(--mint);
+    color: var(--teal-deep);
+  }
+  .hairline-grid {
+    background-image:
+      linear-gradient(to right, rgb(15 21 22 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(15 21 22 / 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum", "zero";
+  }
+  /* Teal band behind a key word in a headline. */
+  .text-highlight {
+    display: inline-block;
+    padding: 0 0.16em 0.06em;
+    border-radius: 0.2em;
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+  /* Pixel sprites stay crisp at any size. */
+  .pixelated {
+    image-rendering: pixelated;
+  }
+  .skeleton {
+    position: relative;
+    overflow: hidden;
+    background: rgb(38 124 131 / 0.07);
+  }
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.6), transparent);
+    animation: shimmer 1.6s ease-out infinite;
+  }
+  .mask-fade-x {
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, #000 70%, transparent);
+  }
+}
+
+/* Fixed film grain on the slate page; the frame sits above it. */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

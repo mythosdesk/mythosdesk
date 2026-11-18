@@ -167,7 +167,7 @@ export default function DocsPage() {
 
           <H id="token" n="09" title={`The ${BRAND.name} token`} />
           <Panel>
-            <p>It will launch on pons, like every other coin here. The ticker and date are not announced yet. Until a contract address appears on the Token &amp; burns page, any coin using this name is not ours.</p>
+            <p>The official token is $MYTHOS, launched on pons on 18 November 2026. Its contract is shown on the Token &amp; burns page and on Proof, read from pons; any other coin using this name is not ours. Unlike coins launched through the site, it carries a 2% creator tax that goes to the creator wallet.</p>
             <p>Buybacks, if any, run through pons and are a treasury decision. Each one will be listed with its transaction on the Token &amp; burns page.</p>
           </Panel>
 

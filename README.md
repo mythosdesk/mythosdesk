@@ -62,7 +62,7 @@ Coins launch against native ETH with no creator tax, and the creator's wallet re
 
 ## Production
 
-Live at https://mythosdesk.xyz. Live trading for user vaults stays off (`LIVE_TRADING_ENABLED=false`) until a vault has been tested with a small amount, and model decisions stay off until `ANTHROPIC_API_KEY` and `AI_MODEL` are set.
+Live at https://mythosdesk.xyz. Live trading for user vaults stays off (`LIVE_TRADING_ENABLED=false`) until a vault has been tested with a small amount; during that test, `LIVE_TRADING_OWNERS` limits live trading to the listed owner wallets. Model decisions stay off until `ANTHROPIC_API_KEY` and `AI_MODEL` are set.
 
 Required in production: `DATABASE_URL` (Postgres), `JWT_SECRET`, `WALLET_ENCRYPTION_KEY` (back it up, it unlocks every vault), `WEB_ORIGIN`, `PUBLIC_SERVER_URL`, and on the web `NEXT_PUBLIC_API_URL`. Migrations run on boot. Socket.IO needs WebSocket upgrades on the API host.
 

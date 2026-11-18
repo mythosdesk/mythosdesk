@@ -51,6 +51,8 @@ const schema = z.object({
   MARKET_REFRESH_SECONDS: num(90),
 
   LIVE_TRADING_ENABLED: bool(false),
+  /** Comma-separated owner wallets that may trade live. Empty: every owner, once LIVE_TRADING_ENABLED is on. */
+  LIVE_TRADING_OWNERS: z.string().optional().default(""),
   /** Robinhood Chain swaps via the KyberSwap aggregator (no key needed). */
   ROBINHOOD_LIVE_ENABLED: bool(true),
   KYBERSWAP_API_URL: z.string().default("https://aggregator-api.kyberswap.com"),
@@ -127,12 +129,20 @@ export const env = {
   PONS_FACTORY_ADDRESS: contractAddress("PONS_FACTORY_ADDRESS", raw.PONS_FACTORY_ADDRESS, PONS.factory),
   PONS_LAUNCH_AND_BUY_ADDRESS: contractAddress("PONS_LAUNCH_AND_BUY_ADDRESS", raw.PONS_LAUNCH_AND_BUY_ADDRESS, PONS.launchAndBuy),
   aiEnabled: Boolean(raw.ANTHROPIC_API_KEY && raw.AI_MODEL),
+  /** Lowercased LIVE_TRADING_OWNERS; empty means no limit. */
+  liveOwners: raw.LIVE_TRADING_OWNERS.split(",").map((a) => a.trim().toLowerCase()).filter(Boolean),
   /** Explicit RPC per chain, or "" to use the public endpoint with its fallbacks. */
   rpcOverride: rpcOverrides,
   rpc: Object.fromEntries(
     CHAIN_KEYS.map((key) => [key, rpcOverrides[key] || CHAINS[key].defaultRpc]),
   ) as Record<ChainKey, string>,
 };
+
+/** Whether this owner's agents may open live positions. LIVE_TRADING_OWNERS keeps live trading to test wallets before it opens to everyone. */
+export function liveAllowedFor(ownerAddress: string | null | undefined): boolean {
+  if (env.liveOwners.length === 0) return true;
+  return Boolean(ownerAddress) && env.liveOwners.includes(String(ownerAddress).toLowerCase());
+}
 
 /** Whether the worker may send real swaps from vaults on a chain. */
 export function liveExecutionEnabled(chain: ChainKey): boolean {

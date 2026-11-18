@@ -13,7 +13,7 @@ import { and, desc, eq } from "drizzle-orm";
 import { Router } from "express";
 import { z } from "zod";
 import { db, schema } from "../db/client";
-import { liveExecutionEnabled } from "../env";
+import { liveAllowedFor, liveExecutionEnabled } from "../env";
 import { consumeChallenge, HttpProblem, issueChallenge, requireAuth, type AuthedRequest } from "../lib/auth";
 import { newId } from "../lib/util";
 import { emit } from "../realtime";
@@ -169,6 +169,9 @@ meRouter.post(
     const row = await ownedAgent((req as AuthedRequest).wallet, String(req.params.id));
     const { mode } = parse(z.object({ mode: z.enum(["PAPER", "LIVE"]) }), req.body);
     if (mode === "LIVE") {
+      if (!liveAllowedFor((req as AuthedRequest).wallet)) {
+        throw new HttpProblem(403, "Live trading is limited to test agents for now. Start in paper mode instead.");
+      }
       const wallets = await vaultBalances(row.id, true);
       const ready = wallets.filter((w) => w.liveEnabled && (w.balance ?? 0) > 0);
       if (ready.length === 0) {

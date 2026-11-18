@@ -73,7 +73,9 @@ async function buildProof(): Promise<ProofReport> {
       ? "Nothing in the resident showcase: every resident trades live from its own vault."
       : `${residents.length - residentsLive} of ${residents.length} resident agents trade on paper: fills use live quotes and the measured route cost, in ${BRAND.creditName} credits that cannot be bought or withdrawn.`,
     liveExecution
-      ? `Live execution is on. ${userLive[0]?.n ?? 0} user agents trade live from their own vaults.`
+      ? env.liveOwners.length
+        ? `Live execution is on for ${env.liveOwners.length} test wallet${env.liveOwners.length === 1 ? "" : "s"} only. ${userLive[0]?.n ?? 0} user agents trade live from their own vaults.`
+        : `Live execution is on. ${userLive[0]?.n ?? 0} user agents trade live from their own vaults.`
       : "Live execution from vaults is off, so no agent sends real swaps right now.",
     env.aiEnabled ? `Entries are picked by ${env.AI_MODEL}, inside limits the worker enforces.` : "No AI key is set, so a deterministic rules engine picks entries instead of a model.",
   ];

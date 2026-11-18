@@ -5,7 +5,7 @@
  */
 import { CHAINS, type ChainKey, type MarketToken } from "@elyagents/shared";
 import { erc20Abi, formatEther, formatUnits, parseEther, parseEventLogs, parseUnits, type Hex } from "viem";
-import { env, liveExecutionEnabled } from "../env";
+import { env, liveAllowedFor, liveExecutionEnabled } from "../env";
 import { fmtUsd } from "../lib/util";
 import { errorMessage, log } from "../log";
 import { fetchJson, HttpError, TtlCache } from "../market/http";
@@ -159,6 +159,7 @@ function receivedFromLogs(logs: Parameters<typeof parseEventLogs>[0]["logs"], to
 }
 
 export async function liveBuy(agent: AgentRow, token: MarketToken, spendUsd: number): Promise<BuyResult> {
+  if (!liveAllowedFor(agent.ownerAddress)) return { ok: false, error: "Live trading is limited to test agents for now" };
   const chain = token.chain;
   if (!liveExecutionEnabled(chain)) return { ok: false, error: `Live execution is not enabled on ${CHAINS[chain].name}` };
   try {
